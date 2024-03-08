@@ -1,0 +1,18 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "content",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "lesson_ref",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "activity_ref",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ]
+}
