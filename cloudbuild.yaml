@@ -1,0 +1,21 @@
+steps:
+ #Build container image for api-generator
+ - name: 'gcr.io/cloud-builders/docker'
+   args: [ 'build', '-t', 'us-central1-docker.pkg.dev/aiteach-30046/container-images/aiteach-instructor:$COMMIT_SHA', '.' ]
+ # Push the container image to Container Registry
+ - name: 'gcr.io/cloud-builders/docker'
+   args: ['push', 'us-central1-docker.pkg.dev/aiteach-30046/container-images/aiteach-instructor:$COMMIT_SHA']
+ # Deploy container image to Cloud Run
+ - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+   entrypoint: gcloud
+   args:
+   - 'run'
+   - 'deploy'
+   - 'aiteach-instructor'
+   - '--image'
+   - 'us-central1-docker.pkg.dev/aiteach-30046/container-images/aiteach-instructor:$COMMIT_SHA'
+   - '--region'
+   - 'us-central1'
+   - '--allow-unauthenticated'
+images:
+ - 'us-central1-docker.pkg.dev/aiteach-30046/container-images/aiteach-instructor'
